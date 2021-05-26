@@ -1,47 +1,53 @@
+<?php
+error_reporting(0);
+if(!isset($_SESSION)){
+    session_start();
+}
+if(isset($_SESSION['tmp_status'])){
+    $tmp_status = $_SESSION['tmp_status'];
+    unset($_SESSION['tmp_status']);
+}else{
+    $tmp_status = 0;
+}
+if(isset($_SESSION['tmp_username'])){
+    $tmp_username = $_SESSION['tmp_username'];
+    unset($_SESSION['tmp_username']);
+}else{
+    $tmp_username = "";
+}
+if(isset($_SESSION['tmp_password'])){
+    $tmp_password = $_SESSION['tmp_password'];
+    unset($_SESSION['tmp_password']);
+}else{
+    $tmp_password = "";
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>
-        PHP FOR BEGINNERS: BUILD YOUR FIRST SIMPLE CRM FROM SCRATCH
-    </title>
+<title>Hệ thống quản lý khách hàng</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="Stylesheet" href="css/style.css" />
 </head>
-<body>
-<h1>PHP FOR BEGINNERS: BUILD YOUR FIRST SIMPLE CRM FROM SCRATCH</h1>
-
-<div>
-<p>
-Customer Relationship Management (CRM) is a system that manages customer interactions and data throughout the customer lifecycle between the customer and the company across different channels. 
-</p>
-
-<p>
-In the simple CRM system demo, salespeople can:
-</p>
-
-<ul>
-<li>Access their tasks</li>
-<li>View their leads </li>
-<li>Create new tasks for each lead</li>
-<li>Create new opportunity</li>
-<li>Lose a sale</li>
-</ul>
-
-<p>
-Sales managers will be able to:
-</p>
-
-<ul>
-<li>Manage all customers </li>
-<li>Manage sales team</li>
-<li>View current sales activities</li>
-</ul>
-</div>
-
-<div>
-    <h2>Visit Demo:</h2>
-    <div>   
-        <a href="sales/tasks.php">Sales</a> | <a href="managers/pipeline.php">Manager</a>
+<body style="margin: 0px">
+<div class="login-form">
+    <div class="container">
+        <div class="left">
+            <div class="name">ĐĂNG NHẬP</div>
+            <div class="description">Vui lòng nhập tài khoản và mật khẩu để đăng nhập vào hệ thống quản lý khách hàng.</div>
+        </div>
+        <div class="right">
+            <form class="form" method="POST" action="controller/login.php">
+                <label for="username">Tài khoản</label>
+                <input type="text" id="username" name = "username" value = "<?=$tmp_username ?>" required>
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name = "password" value = "<?=$tmp_password ?>" required>
+                <button type="submit" id="submit">Đăng nhập</button>
+                <?php if($tmp_status!=0) echo "<p style='color: red'>Tài khoản hoặc mật khẩu sai</p>" ?>
+            </form>
+        </div>
     </div>
 </div>
-
 </body>
-</html>
+
