@@ -3,11 +3,9 @@ include_once("../phpGrid_Lite/conf.php");
 include_once('../inc/head.php');
 ?>
 
-<h1>My Custom CRM</h1>
-
 <?php
 $_GET['currentPage'] = 'tasks';
-include_once('../inc/menu.php');
+include_once('../inc/sales_menu.php');
 ?>
 
 <h3>My Current Tasks | <a href="tasks-completed.php">My Completed Tasks</a></h3>

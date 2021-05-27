@@ -5,8 +5,6 @@ include_once('../inc/head.php');
 $tableName = (isset($_GET['gn']) && $_GET['gn'] !== '') ? $_GET['gn'] : 'users';
 ?>
 
-<h1>My Custom CRM - Sales Pipeline</h1>
-
 <section id="subtitle">
     <h2>Welcome! Manager</h2>
     <div>

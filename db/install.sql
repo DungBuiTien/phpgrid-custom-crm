@@ -170,7 +170,8 @@ INSERT INTO `roles` (`id`, `role`)
 VALUES
 	(1,'Sales Rep'),
 	(2,'Sales Manager'),
-	(3,'Admin');
+	(3,'Vendor'),
+  (4, 'Admin');
 
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -285,8 +286,9 @@ CREATE TABLE `users` (
   `Name_First` varchar(6) NOT NULL,
   `Name_Middle` varchar(30) DEFAULT NULL,
   `Name_Last` varchar(8) NOT NULL,
+  `Username` varchar(50) NOT NULL,
   `Email` varchar(16) NOT NULL,
-  `Password` varchar(9) NOT NULL,
+  `Password` varchar(255) NOT NULL,
   `User_Roles` int(11) unsigned NOT NULL,
   `User_Status` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`),
@@ -299,17 +301,78 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
-INSERT INTO `users` (`id`, `Name_Title`, `Name_First`, `Name_Middle`, `Name_Last`, `Email`, `Password`, `User_Roles`, `User_Status`)
+INSERT INTO `users` (`id`, `Name_Title`, `Name_First`, `Name_Middle`, `Name_Last`, `Username`,`Email`, `Password`, `User_Roles`, `User_Status`)
 VALUES
-	(1,NULL,'Johnny',NULL,'Rep','rep@test.com','123456',1,1),
-	(2,NULL,'Mary',NULL,'Rep','rep2@test.com','123456',1,1),
-	(3,NULL,'Suzy',NULL,'Manager','manager@test.com','123456',2,1),
-	(4,NULL,'Sales',NULL,'Manager1','sm@sm.com','123456',2,1),
-	(5,NULL,'Rich',NULL,'C','test@test.com','123456',1,1);
+	(1,NULL,'Johnny',NULL,'Rep','sale','rep@test.com','$2y$10$qBV41wx0BdIIzetgiKgoM.1UqffuHMPbQ18hhvJwiJw36M3BK3ZwK',1,1),
+	(2,NULL,'Mary',NULL,'Rep','sale2','rep2@test.com','$2y$10$qBV41wx0BdIIzetgiKgoM.1UqffuHMPbQ18hhvJwiJw36M3BK3ZwK',1,1),
+	(3,NULL,'Suzy',NULL,'Manager','manager','manager@test.com','$2y$10$qBV41wx0BdIIzetgiKgoM.1UqffuHMPbQ18hhvJwiJw36M3BK3ZwK',2,1),
+	(4,NULL,'Sales',NULL,'Vendor','vendor','sm@sm.com','$2y$10$qBV41wx0BdIIzetgiKgoM.1UqffuHMPbQ18hhvJwiJw36M3BK3ZwK',3,1),
+	(5,NULL,'Rich',NULL,'C','admin','test@test.com','$2y$10$qBV41wx0BdIIzetgiKgoM.1UqffuHMPbQ18hhvJwiJw36M3BK3ZwK',4,1);
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+
+# Dump of table products
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `products`;
+
+CREATE TABLE `products` (
+  `product_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL DEFAULT '',
+  `description` varchar(500),
+  `price` double NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `quantity` int(10) NOT NULL,
+  `update_date` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`product_id`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+
+INSERT INTO `products` VALUES
+	(1,'Ghế nhựa Hoà phát','Ghế nhựa của Hoà Phát','100000','Ghế','Xanh',100,CURRENT_TIMESTAMP()),
+  (2,'Ghế nhựa Hoà phát','Ghế nhựa của Hoà Phát','100000','Ghế','Đỏ',100,CURRENT_TIMESTAMP()),
+  (3,'Ghế nhựa Hoà phát','Ghế nhựa của Hoà Phát','100000','Ghế','Vàng',100,CURRENT_TIMESTAMP()),
+  (4,'Bàn nhựa Hoà Phát','Ghế nhựa của Hoà Phát','100000','Bàn','Cỡ vừa',100,CURRENT_TIMESTAMP()),
+  (5,'Bàn nhựa Hoà Phát','Ghế nhựa của Hoà Phát','100000','Bàn','Cỡ nhỏ',100,CURRENT_TIMESTAMP()),
+  (6,'Bàn nhựa Hoà Phát','Ghế nhựa của Hoà Phát','100000','Bàn','Cỡ to',100,CURRENT_TIMESTAMP()),
+  (7,'Tủ nhựa Hoà phát','Ghế nhựa của Hoà Phát','100000','Tủ','Cỡ nhỏ',100,CURRENT_TIMESTAMP()),
+  (8,'Tủ nhựa Hoà phát','Ghế nhựa của Hoà Phát','100000','Tủ','Cỡ vừa',100,CURRENT_TIMESTAMP()),
+  (9,'Tủ nhựa Hoà phát','Ghế nhựa của Hoà Phát','100000','Tủ','Cỡ to',100,CURRENT_TIMESTAMP());
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+# Dump of table products_owner
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `distributors`;
+
+CREATE TABLE `distributors` (
+  `distributor_id` int(11) NOT NULL AUTO_INCREMENT,
+  `distributor_name` varchar(255) NOT NULL,
+  `distributor_address` varchar(255) NOT NULL,
+  `distributor_discount` double NOT NULL,
+  `distributor_assign_date` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`distributor_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `distributors` WRITE;
+/*!40000 ALTER TABLE `distributors` DISABLE KEYS */;
+
+INSERT INTO `distributors`
+VALUES
+	(1,"Nhà phân phối số 1", "Hà Nội",5,CURRENT_TIMESTAMP()),
+	(2,"Nhà phân phối số 2", "Đà Nẵng",5,CURRENT_TIMESTAMP()),
+	(3,"Nhà phân phối số 3", "Hải Phòng",3,CURRENT_TIMESTAMP());
+
+/*!40000 ALTER TABLE `distributors` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

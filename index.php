@@ -30,7 +30,7 @@ if(isset($_SESSION['tmp_password'])){
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link type="text/css" rel="Stylesheet" href="css/style.css" />
 </head>
-<body style="margin: 0px">
+<body style="margin: 0px; padding: 0px">
 <div class="login-form">
     <div class="container">
         <div class="left">

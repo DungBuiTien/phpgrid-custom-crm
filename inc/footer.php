@@ -1,5 +1,5 @@
 <br /><br /><br /><br /><br />
-<div class="footer">phpGrid - <strong>Build From Scratch Series</strong>. &copy; <?php echo date('Y'); ?>.</div>
+<div class="footer">Hệ thống quản lý khách hàng. &copy; <?php echo date('Y'); ?>.</div>
 
 </body>
 </html>
