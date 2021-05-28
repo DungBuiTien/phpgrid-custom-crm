@@ -41,7 +41,6 @@ if($mode=="update" || $mode=="view"){
 ?>
 
 <div id="wrapper">
-  
     <h2>Trang thông tin nhà phân phối</h2>
     <a style="margin: 0px" href="distributors.php"><<< Quay lại trang trước</a>
     <form class="info_form" id='info_form' method="POST" action="../controller/update_distributor.php">
@@ -93,7 +92,7 @@ if($mode=="update" || $mode=="view"){
     switch($mode){
         case "view":
             echo "<button type='button' onclick=\"location.href='viewdetails.php?mode=update&distributor_id=".$distributor_info['distributor_id']."'\">Chỉnh sửa</button>";
-            echo "<button type='button' class='submitbtn' id='del_button' onclick='setDelPro()'>Xoá bản ghi</button>";
+            echo "<button type='button' class='submitbtn' id='del_button' onclick='setDelPro()'>Xoá nhà phân phối</button>";
             break;
         case "update":
         case "add":
@@ -108,7 +107,7 @@ if($mode=="update" || $mode=="view"){
 
 <?php 
 if($mode=="view"){
-    echo "<button type='button' onclick=\"location.href='add_user.php'\">Thêm nhân viên</button>";
+    echo "<button type='button' onclick=\"document.getElementById('id01').style.display='block'\">Thêm nhân viên</button>";    
 
     $sql =  "SELECT u.id, u.name, u.email, r.role, s.status ".
             "FROM users u INNER JOIN distributor_user du on u.id = du.user_id ".
@@ -126,6 +125,69 @@ if($mode=="view"){
     $dg->display();
 }
 ?>
+
+<div id="id01" class="modal">
+    
+    <form class="modal-content animate info_form" action="../controller/update_user.php" method="post">
+    <input type="hidden" name="mode" value="add">
+    <input type="hidden" name="distributor_id" value="<?=$distributor_info['distributor_id']?>">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+    </div>
+    <div class="col-1">
+        <label style="text-align: center; font-size: large">Thêm người dùng mới</label>
+    </div> 
+    <div class="col-3">
+        <label>
+        Tài khoản
+        <input id="username" name="username" tabindex="11" required>
+        </label>
+    </div>
+    <div class="col-3">
+        <label>
+        Mật khẩu
+        <input id="password" name="password" tabindex="12" required>
+        </label>
+    </div>
+    <div class="col-3" style="height: 77px">
+        <label>
+        Vai trò
+        <select name="role" id="role">
+            <option value="1">Nhân viên bán hàng</option>
+            <option value="2">Quản lý</option>
+        </select>
+        </label>
+    </div>
+    <div class="col-1">
+        <label>
+        Tên nhân viên
+        <input id="name" name="name" tabindex="13">
+        </label>
+    </div>
+    <div class="col-1">
+        <label>
+        Email
+        <input id="email" name="email" tabindex="14">
+        </label>
+    </div>
+    
+
+    <div class="col-submit">
+        <button class='submitbtn'>Thêm mới</button>
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<script>
+var modal = document.getElementById('id01');
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 
 <?php
 function display_ErrMsg($err){

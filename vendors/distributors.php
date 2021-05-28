@@ -25,7 +25,7 @@ mysqli_close($connect);
     <button id ="add_distributor" onclick="location.href='viewdetails.php?mode=add'" type="button">Thêm mới</button>
 </div>
 <p style="text-align: right; margin: 0px">Tổng số <?=$distributors_num?> nhà phân phối</p>
-<table id="distributors">
+<table class="info_table">
     <tr>
         <th>Mã NPP</th>
         <th>Tên nhà phân phối</th>

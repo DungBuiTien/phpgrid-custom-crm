@@ -25,14 +25,14 @@ $tableName = (isset($_GET['gn']) && $_GET['gn'] !== '') ? $_GET['gn'] : 'users';
 <?php
 switch($tableName){
     case "users":
-        $dg = new C_DataGrid("SELECT id, Name_First, Name_Last, Email, Password FROM users", "id", "users");
+        $dg = new C_DataGrid("SELECT id, name, Email, Password FROM users", "id", "users");
         $dg->set_query_filter(" user_roles = 1 ");
         $dg->set_col_hidden('id')->set_col_hidden('User_Roles')->set_col_hidden('User_Status')->set_col_hidden('Password');
         $dg->set_caption('Sales Rep');   
 
         $sdg = new C_DataGrid("SELECT id, contact_last, contact_title, company, industry, status, budget, sales_rep, rating FROM contact", "id", "contact");
         $sdg->set_col_hidden('id')->set_col_hidden('sales_rep', false);
-        $sdg->set_col_edittype('sales_rep', 'select', "select id, concat(name_first, ' ', name_last) from users");
+        $sdg->set_col_edittype('sales_rep', 'select', "select id, name from users");
         $sdg->set_col_currency('budget');
         $sdg->set_scroll(true);
 
@@ -59,13 +59,13 @@ GRIDCOMPLETE;
         $dg->set_col_edittype('Todo_Desc_ID', 'select', "select id, description from todo_desc");
         $dg->set_col_edittype('Contact', 'select', "select id, concat(contact_first, ' ', contact_last) from contact");
         $dg->set_col_edittype('Task_Status', 'select', "select id, status from task_status");
-        $dg->set_col_edittype('Sales_Rep', 'select', "select id, concat(name_first, ' ', name_last) from users");
+        $dg->set_col_edittype('Sales_Rep', 'select', "select id, concat(name) from users");
         break;
 
     case "contact":
         $dg = new C_DataGrid("SELECT id, contact_last, contact_title, company, industry, status, budget, sales_rep, rating FROM contact", "id", "contact");
         $dg->set_col_hidden('id');
-        $dg->set_col_edittype('sales_rep', 'select', "select id, concat(name_first, ' ', name_last) from users");
+        $dg->set_col_edittype('sales_rep', 'select', "select id, concat(name) from users");
         $dg->set_col_currency('budget');
         $dg->enable_search(true);
 
@@ -78,7 +78,7 @@ GRIDCOMPLETE;
         $sdg->set_col_edittype('Is_New_Todo', 'select', '0:No;1:Yes');
         $sdg->set_col_edittype('Todo_Type_ID', 'select', 'Select id, type From todo_type');
         $sdg->set_col_edittype('Todo_Desc_ID', 'select', 'Select id, description From todo_desc');
-        $sdg->set_col_edittype('Sales_Rep', 'select', "select id, concat(name_first, ' ', name_last) from users");
+        $sdg->set_col_edittype('Sales_Rep', 'select', "select id, concat(name) from users");
         $sdg->enable_edit();
 
         $dg->set_subgrid($sdg, 'Contact', 'id');

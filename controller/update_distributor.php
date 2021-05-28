@@ -4,6 +4,7 @@ if(!isset($_SESSION)){
 }
 header('Content-Type: text/html; charset=UTF-8');
 include_once("../phpGrid_Lite/conf.php");
+include_once('../inc/head.php');
 
 $mode = addslashes($_POST['form_type']);
 $distributor_info = array();
@@ -81,6 +82,11 @@ switch($mode){
             header("Location: $redirect");
         }
         break;
+    default:
+        $err = "Đã có lỗi xảy ra.";
+        mysqli_close($connect);
+        display_ErrMsg($err);
+        exit;
     }
     mysqli_close($connect);
 ?>

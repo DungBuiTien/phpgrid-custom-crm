@@ -51,6 +51,8 @@ if(!isset($_SESSION)){
                 break;
             case "admin":
                 break;
+            case "controller":
+                break;
             default:
                 display_PerErrMsg();
                 exit;
