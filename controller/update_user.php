@@ -27,6 +27,7 @@ if($user_info['distributor_id']=='' || !check_exist_distributor($connect, $user_
 switch($mode){
     case "add":
         if(check_exist_user($connect, $user_info['username'])){
+            mysqli_close($connect);
             $err = "Username đã tồn tại.";
             display_ErrMsg($err);
             exit;
@@ -56,6 +57,11 @@ switch($mode){
             header("Location: $redirect");
         }
         break;
+    default:
+        $err = "Đã có lỗi xảy ra.";
+        mysqli_close($connect);
+        display_ErrMsg($err);
+        exit;
 }
 
 

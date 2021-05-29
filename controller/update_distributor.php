@@ -87,8 +87,8 @@ switch($mode){
         mysqli_close($connect);
         display_ErrMsg($err);
         exit;
-    }
-    mysqli_close($connect);
+}
+
 ?>
 
 <?php
