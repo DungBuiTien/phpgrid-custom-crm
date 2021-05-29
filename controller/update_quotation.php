@@ -5,6 +5,7 @@ if(!isset($_SESSION)){
 header('Content-Type: text/html; charset=UTF-8');
 include_once("../phpGrid_Lite/conf.php");
 include_once('../inc/head.php');
+$user_id = $_SESSION['userid'];
 
 $mode = addslashes($_POST['mode']);
 $quotation_info = array();
@@ -24,6 +25,8 @@ $quotation_info['sum_sale'] = addslashes($_POST['sum_sale']);
 
 //Mo ket noi den database
 $connect = mysqli_connect( PHPGRID_DB_HOSTNAME, PHPGRID_DB_USERNAME, PHPGRID_DB_PASSWORD, PHPGRID_DB_NAME) or die("Không thể kết nối database");
+
+$user_role=get_Role($connect,$user_id);
 
 switch($mode){
     case "add":
@@ -105,7 +108,11 @@ switch($mode){
                 display_ErrMsg($err);
                 exit;
             }
-            $redirect = "../sales/customers.php";
+            if($user_role==2){
+                $redirect = "../managers/quotations.php";
+            } else {
+                $redirect = "../sales/customers.php";
+            }
             header("Location: $redirect");
         }
         break;
@@ -130,7 +137,11 @@ switch($mode){
                 display_ErrMsg($err);
                 exit;
             }
-            $redirect = "../sales/quotations.php";
+            if($user_role==2){
+                $redirect = "../managers/quotations.php";
+            } else {
+                $redirect = "../sales/quotations.php";
+            }
             header("Location: $redirect");
         }
         break;
@@ -170,4 +181,17 @@ function check_exist_quotation($connect, $quotation_id){
 function display_ErrMsg($err){
     echo "<script type='text/javascript'> window.onload=display_ErrMsg('".$err."'); </script>";
 } 
+
+function get_Role($connect, $user_id){
+    $sql = "SELECT user_roles FROM users WHERE id = '".$user_id."'";
+    $result = mysqli_query($connect, $sql);
+    if (mysqli_num_rows($result) == 0) {
+        $err = "Cập nhật thất bại.";
+        display_ErrMsg($err);
+        exit;
+    } else {
+        $role = mysqli_fetch_array($result);
+    }
+    return $role[0];
+}
 ?>

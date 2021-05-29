@@ -7,9 +7,6 @@ include_once('../inc/head.php');
 $_GET['currentPage'] = 'employee';
 include_once('../inc/manager_menu.php');
 $user_id = $_SESSION['userid'];
-
-echo "<h3>Quản lý Nhân viên bán hàng</h3>";
-
 //Mo ket noi den database
 $connect = mysqli_connect( PHPGRID_DB_HOSTNAME, PHPGRID_DB_USERNAME, PHPGRID_DB_PASSWORD, PHPGRID_DB_NAME) or die("Không thể kết nối database");
 $connect->set_charset("utf8");
@@ -23,7 +20,7 @@ $stt_num = mysqli_num_rows($result);
 $distributor_info = mysqli_fetch_array($result);
 mysqli_close($connect);
 
-echo "<button type='button' onclick=\"document.getElementById('id01').style.display='block'\">Thêm nhân viên</button>";    
+echo "<button style='margin: 5px' type='button' onclick=\"document.getElementById('id01').style.display='block'\">Thêm nhân viên</button>";    
 
     $sql =  "SELECT u.id, u.name, u.email, r.role, s.status ".
             "FROM users u INNER JOIN distributor_user du on u.id = du.user_id ".

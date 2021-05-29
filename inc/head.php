@@ -11,5 +11,7 @@
     include("../controller/check_permission.php");
 ?>
 <body>
-<h1>Hệ thống quản lý khách hàng</h1>
-<button type="button" onclick="location.href='../controller/logout.php'">Đăng xuất</button>
+<ul id="header">
+  <li style="float:left; font-size: 30px; width: 50%"><a >HỆ THỐNG QUẢN LÝ KHÁCH HÀNG</a></li>
+  <li style="float:right; line-height: 2"><a href="../controller/logout.php">Đăng xuất</a></li>
+</ul>

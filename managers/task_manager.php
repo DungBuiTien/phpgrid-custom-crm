@@ -4,11 +4,9 @@ if(!isset($_SESSION)){
 }
 include_once("../phpGrid_Lite/conf.php");      
 include_once('../inc/head.php');
-$_GET['currentPage'] = 'tasks';
+$_GET['currentPage'] = 'task_manager';
 include_once('../inc/manager_menu.php');
 $user_id = $_SESSION['userid'];
-
-echo "<h3>Quản lý tasks của nhân viên</h3>";
 
 //Mo ket noi den database
 $connect = mysqli_connect( PHPGRID_DB_HOSTNAME, PHPGRID_DB_USERNAME, PHPGRID_DB_PASSWORD, PHPGRID_DB_NAME) or die("Không thể kết nối database");
@@ -18,10 +16,12 @@ $connect->set_charset("utf8");
 $sql =  "SELECT
         n.id,
         n.date,
+        n.sales_rep as sale_id,
+        u.name as sale_name,
         n.contact_id,
         c.contact_name,
         t.type,
-        d.WORK,
+        d.work,
         n.description,
         n.task_update,
         n.todo_due_date,
@@ -31,10 +31,10 @@ $sql =  "SELECT
         INNER JOIN contact c ON n.contact_id = c.id
         INNER JOIN todo_type t ON n.todo_type_id = t.id
         INNER JOIN todo_desc d ON n.todo_work_id = d.id 
-        WHERE
+        INNER JOIN users u ON n.sales_rep = u.id 
+        WHERE u.User_Roles = 1 AND 
         n.Sales_Rep IN ( SELECT user_id FROM distributor_user du WHERE du.distributor_id = ( SELECT distributor_id FROM distributor_user WHERE distributor_user.user_id = ".$user_id." ) ) 
-        ORDER BY
-        n.id";
+        ORDER BY date DESC";
 $result = mysqli_query($connect, $sql);
 $task_num = mysqli_num_rows($result);
 for ($i=0; $i<$task_num; $i++){
@@ -69,6 +69,7 @@ mysqli_close($connect);
     <tr>
         <th>Ngày thêm</th>
         <th>Khách hàng</th>
+        <th>Nhân viên</th>
         <th>Loại</th>
         <th>Tiến trình hiện tại</th>
         <th>Miêu tả công việc</th>
@@ -82,14 +83,15 @@ mysqli_close($connect);
         echo "<tr>";
         echo "<td style='text-align: center; width: 10%'>".$task_list[$i]["date"]."</td>";
         echo "<td style='width: 10%'>".$task_list[$i]["contact_name"]."</td>";
+        echo "<td style='width: 10%'>".$task_list[$i]["sale_name"]."</td>";
         echo "<td style='text-align: center; width: 5%'>".$task_list[$i]["type"]."</td>";
-        echo "<td style='width: 15%'>".$task_list[$i]["work"]."</td>";
-        echo "<td>".$task_list[$i]["description"]."</td>";
-        echo "<td>".$task_list[$i]["task_update"]."</td>";
+        echo "<td style='width: 10%'>".$task_list[$i]["work"]."</td>";
+        echo "<td >".$task_list[$i]["description"]."</td>";
+        echo "<td style='width: 10%'>".$task_list[$i]["task_update"]."</td>";
         if($task_list[$i]["Task_Status"] == '1') {
-            echo "<td>Chưa hoàn thành</td>";
+            echo "<td style='width: 10%'>Chưa hoàn thành</td>";
         } else {
-            echo "<td>Hoàn thành</td>";
+            echo "<td style='width: 10%'>Hoàn thành</td>";
         }
         echo "<td style='width: 10%'>".$task_list[$i]["todo_due_date"]."</td>";
         echo "<td style='text-align: center; width: 30px'><button onclick=\"document.getElementById('".$task_list[$i]['id']."').style.display='block'\" type=\"button\">edit</button></td>";
@@ -99,7 +101,7 @@ mysqli_close($connect);
 </table>
 <div id="new" class="modal">
     <form id = "form_id" class="modal-content animate info_form" action="../controller/update_task.php" method="post">
-    <input type="hidden" name="mode" value="add">
+    <input type="hidden" name="mode" value="add_to_sale">
     <div class="imgcontainer">
       <span onclick="document.getElementById('new').style.display='none'" class="close" title="Close Modal">&times;</span>
     </div>
@@ -120,6 +122,12 @@ mysqli_close($connect);
     </div>
     <div class="col-4">
         <label>
+        Mã nhân viên
+        <input id="sale_id" name="sale_id" required>
+        </label>
+    </div>
+    <div class="col-4">
+        <label>
         Loại
         <select name="type_id" id="type_id">
 <?php
@@ -130,7 +138,7 @@ mysqli_close($connect);
         </select>
         </label>
     </div>
-    <div class="col-4">
+    <div class="col-1">
         <label>
         Tiến trình hiện tại
         <select name="work_id" id="work_id">
@@ -254,4 +262,24 @@ for ($i=0; $i<$task_num; $i++){
     echo "  </form>";
     echo "</div>";
 }
+?>
+<script>
+var modal = document.getElementsByClassName('modal');
+window.onclick = function(event) {
+    for(var i =0;i<modal.length;i++){
+        if (event.target == modal[i]) {
+            modal[i].style.display = "none";
+        }
+    }
+}
+
+function task_complete(id) {
+    var form = 'form_id_'+id;
+    document.getElementById(form).elements['mode'].value="complete";
+    document.getElementById(form).submit();
+}
+</script>
+
+<?php
+include_once('../inc/footer.php');
 ?>

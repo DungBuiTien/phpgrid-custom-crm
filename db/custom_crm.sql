@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 28, 2021 lúc 07:16 PM
+-- Thời gian đã tạo: Th5 29, 2021 lúc 06:43 PM
 -- Phiên bản máy phục vụ: 10.4.19-MariaDB
 -- Phiên bản PHP: 8.0.6
 
@@ -42,34 +42,14 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`id`, `Contact_name`, `Date_of_Initial_Contact`, `Company`, `Address`, `Phone`, `Email`) VALUES
-(1, 'Nguyễn Văn A', '2014-05-09', 'Barnes and Wells', '52 Broadway New York, NY 12345', '(234) 432-2234', 'amir@pr.com'),
-(2, 'Nguyễn Văn B', '2014-02-11', 'DEF Fluids', '456 Diesel St Philadelphia, PA 19308', '(765) 765-7755', 'dave@def.com'),
-(3, 'Nguyễn Văn C', '2014-09-12', 'Ben and Jerry\'s', '123 Ice Cream Way Burlington, VT 12345', '(123) 432-1223', 'eat@benandjerrys.com'),
-(4, 'Nguyễn Văn D', '2014-01-19', 'Pillsbury', '44 Reading Rd Flourtown, NJ 39485', '(555) 555-5555', 'linda@pillsbury.com'),
-(5, 'Nguyễn Văn E', '2014-07-01', 'Facetech', '123 Tech Blvd Menlo Park, CA 12345', '(321) 321-1122', 'sally@facetech.com'),
-(6, 'Nguyễn Văn F', '2014-10-10', 'Levis', '1 Blue Jean St. Corduroy, CO 12345', '(321) 321-4321', 'tim@levis.com'),
-(7, 'Test', '2021-05-28', 'Test', 'Hà Nội', '1234', 'Test');
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `contact_status`
---
-
-CREATE TABLE `contact_status` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `status` varchar(64) NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Đang đổ dữ liệu cho bảng `contact_status`
---
-
-INSERT INTO `contact_status` (`id`, `status`) VALUES
-(1, 'lead'),
-(2, 'opportunity'),
-(3, 'customer/won'),
-(4, 'archive');
+(1, 'Khách Hàng A', '2014-05-09', 'UET', '144 Xuân Thuỷ, Cầu Giấy, Hà Nội', '0981111111', 'email_A@gmail.com'),
+(2, 'Khách Hàng B', '2014-02-11', 'ULIS', '106 Hoàng Quốc Việt, Hà Nội', '0345611112', 'email_B@gmail.com'),
+(3, 'Khách Hàng C', '2014-09-12', 'VNU', '123 Xuân Thuỷ, Cầu Giấy, Hà Nội', '0322644111', 'email_C@gmail.com'),
+(4, 'Khách Hàng D', '2014-01-19', 'UET', '23 Lạc Long Quân, Cầu Giấy, Hà Nội', '0961232311', 'email_D@gmail.com'),
+(5, 'Khách Hàng E', '2014-07-01', 'ULIS', '20 Phan Bội Châu, Hoàn Kiếm, Hà Nội', '0987123123', 'email_E@gmail.com'),
+(6, 'Khách Hàng F', '2014-10-10', 'VNU', '127 Lạc Long Quân, Tây Hồ, Hà Nội', '0312412412', 'email_F@gmail.com'),
+(7, 'Khách Hàng G', '2021-05-28', 'UET', '23 Ngô Tất Tố, Hoàng Mai, Hà Nội', '0321355112', 'email_G@gmail.com'),
+(8, 'Khách Hàng J', '2021-05-29', 'ULIS', '20 Hồ Tùng Mậu, Nam Từ Liêm, Hà Nội', '0985412312', 'email_H@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -93,10 +73,10 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customers_id`, `contact_id`, `sale_id`, `note`, `status`, `budget`, `quotation_id`, `update_date`) VALUES
-(1, 1, 2, 'Note', 1, NULL, NULL, '2021-05-28 16:21:44'),
-(2, 2, 2, 'Note', 1, NULL, NULL, '2021-05-28 16:21:47'),
-(3, 3, 2, 'Note', 1, NULL, NULL, '2021-05-28 16:21:49'),
-(5, 3, 2, 'Test', 1, 0, NULL, '2021-05-28 17:11:26');
+(1, 1, 2, 'Khách hàng cần sản phẩm gấp', 1, NULL, 5, '2021-05-29 16:20:34'),
+(2, 2, 2, 'Khách hàng yêu cầu đưa báo giá trước 09/06', 1, 5000000, NULL, '2021-05-29 16:21:53'),
+(3, 3, 2, 'Khách hàng yêu cầu chi phí thấp nhất', 1, NULL, NULL, '2021-05-29 16:21:23'),
+(5, 3, 2, 'Chưa chốt được chi phí cuối cùng', 2, NULL, NULL, '2021-05-29 16:22:09');
 
 -- --------------------------------------------------------
 
@@ -141,7 +121,7 @@ INSERT INTO `distributors` (`distributor_id`, `distributor_name`, `distributor_a
 (1, 'Nhà phân phối số 1', 'Hà Nội', 5, '2021-05-26 15:10:46'),
 (2, 'Nhà phân phối số 2', 'Đà Nẵng', 5, '2021-05-26 15:10:46'),
 (3, 'Nhà phân phối số 3', 'Hải Phòng', 3, '2021-05-26 15:10:46'),
-(13, 'Test', 'Test', 1, '2021-05-28 06:12:38');
+(13, 'Nhà phân phối số 4', 'Hồ Chí Minh', 1, '2021-05-29 16:22:48');
 
 -- --------------------------------------------------------
 
@@ -162,10 +142,10 @@ INSERT INTO `distributor_user` (`distributor_id`, `user_id`) VALUES
 (1, 1),
 (1, 2),
 (1, 3),
-(1, 4),
 (13, 8),
 (13, 9),
-(13, 10);
+(13, 10),
+(1, 11);
 
 -- --------------------------------------------------------
 
@@ -191,15 +171,16 @@ CREATE TABLE `notes` (
 --
 
 INSERT INTO `notes` (`id`, `Date`, `Description`, `Todo_Type_ID`, `Todo_work_ID`, `Todo_Due_Date`, `Contact_id`, `Task_Status`, `Task_Update`, `Sales_Rep`) VALUES
-(1, '2014-07-11', 'ddddd', 1, 1, '07/23/2014 6:00pm to 8:00pm', 1, 1, '', 1),
-(2, '2015-10-10', 'Demo', 1, 1, 'Trước 12h ngày 2021/05/21', 2, 1, 'Test', 2),
-(3, '2015-05-21', 'sx', 1, 2, '07/31/2014', 3, 1, '', 2),
-(4, '2014-06-01', 'Want to be sure to communicate weekly.', 2, 3, '07/04/2014 10:00am to 10:30am', 4, 1, 'Ongoing', 2),
-(5, '2014-01-31', 'Was introduced at textile conference.zzz', 1, 1, '04/09/2014 3:45pm to 4:45pm', 5, 2, 'Great demo. All they needed to seal the deal.<br>', 1),
-(6, '2014-11-11', 'Great to have this customer on board!', 1, 4, NULL, 6, 1, NULL, 1),
-(7, '2017-01-27', 'test', 1, 2, '', 3, 1, '', 1),
-(8, '2017-01-11', 'test123', 1, 5, NULL, 6, 1, NULL, 1),
-(9, '2021-05-28', '1', 1, 1, '1', 1, 2, '1234', 2);
+(1, '2021-05-21', 'Gửi báo giá cho khách hàng', 1, 1, 'Tử 27/5 đến 1/6', 1, 1, '', 1),
+(2, '2021-05-13', 'Khách hàng cần demo sản phẩm', 1, 4, 'Trước 12h ngày 2021/05/21', 2, 1, 'Chưa chuẩn bị được demo', 2),
+(3, '2021-05-21', 'Khách hàng cần báo giá', 1, 2, '07/31/2021', 3, 1, '', 2),
+(4, '2021-06-01', 'Khách hàng cần liên lạc lại ngay khi có thể', 1, 2, 'Trước 12/7', 4, 1, 'Không gọi được cho khách hàng', 2),
+(5, '2021-05-22', 'Gặp mặt tại công ti khách hàng', 2, 1, '9h30 ngày 29/5/2021', 5, 2, NULL, 1),
+(6, '2021-05-29', 'Liên lạc chốt báo giá', 1, 4, 'Trước 01/06', 6, 1, NULL, 1),
+(7, '2021-05-31', 'Liên lạc chốt báo giá', 1, 2, 'Trước 02/07', 3, 1, '', 1),
+(8, '2021-05-24', 'Gặp mặt khách hàng', 2, 5, '12h ngày 30/5', 6, 1, ' ', 1),
+(9, '2021-05-28', 'Demo sản phẩm', 2, 1, '9h ngày 20/6', 1, 2, 'Đã chuẩn bị demo', 2),
+(10, '2021-05-29', 'Gửi báo giá', 1, 1, 'Trước 07/06', 1, 2, 'Đã gửi báo giá', 2);
 
 -- --------------------------------------------------------
 
@@ -223,10 +204,11 @@ CREATE TABLE `opportunities` (
 --
 
 INSERT INTO `opportunities` (`opportunities_id`, `contact_id`, `sale_id`, `note`, `priority`, `budget`, `status`, `date_added`) VALUES
-(1, 1, 1, '100 Gỗ', 5, 100, 1, '2021-05-28 15:10:31'),
-(2, 2, 2, '100 Gỗ', 4, 100, 1, '2021-05-28 15:10:34'),
-(3, 3, 2, '100 Gỗ', 3, 100, 0, '2021-05-28 14:17:16'),
-(7, 3, 2, 'Test', 1, 0, 2, '2021-05-28 17:11:26');
+(1, 1, 1, 'Khách hàng đang xem xét sản phẩm của chúng ta', 5, 100, 1, '2021-05-29 16:29:51'),
+(2, 2, 2, 'Khách hàng đã liên hệ trước', 4, 100, 1, '2021-05-29 16:30:22'),
+(3, 3, 2, 'Khách hàng mới được giới thiệu sản phẩm', 3, 100, 0, '2021-05-29 16:30:40'),
+(7, 3, 2, 'Khách hàng đang tham khảo giá', 3, 0, 2, '2021-05-29 16:30:56'),
+(8, 4, 2, 'Khách hàng cần tham khảo báo giá của bên chúng ta', 4, 0, 1, '2021-05-29 16:37:49');
 
 -- --------------------------------------------------------
 
@@ -269,10 +251,19 @@ INSERT INTO `products` (`product_id`, `name`, `description`, `price`, `category`
 CREATE TABLE `quotations` (
   `quotation_id` int(11) NOT NULL,
   `contact_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `sale_id` int(11) NOT NULL,
   `status` int(1) NOT NULL,
+  `original_price` int(11) NOT NULL,
+  `sale_price` int(11) NOT NULL,
   `update_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `quotations`
+--
+
+INSERT INTO `quotations` (`quotation_id`, `contact_id`, `sale_id`, `status`, `original_price`, `sale_price`, `update_date`) VALUES
+(5, 1, 2, 2, 285000, 400000, '2021-05-29 14:23:51');
 
 -- --------------------------------------------------------
 
@@ -287,6 +278,36 @@ CREATE TABLE `quotation_info` (
   `original_price` double NOT NULL,
   `sale_price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `quotation_info`
+--
+
+INSERT INTO `quotation_info` (`quotation_id`, `product_id`, `quantity`, `original_price`, `sale_price`) VALUES
+(5, 1, 1, 95000, 100000),
+(5, 2, 1, 95000, 200000),
+(5, 3, 1, 95000, 100000);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `quotation_status`
+--
+
+CREATE TABLE `quotation_status` (
+  `status` int(1) NOT NULL,
+  `value` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `quotation_status`
+--
+
+INSERT INTO `quotation_status` (`status`, `value`) VALUES
+(0, 'Báo giá bị từ chối'),
+(1, 'Báo giá mới được tạo'),
+(2, 'Báo giá đã được gửi'),
+(3, 'Báo giá được chấp thuận');
 
 -- --------------------------------------------------------
 
@@ -304,9 +325,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `role`) VALUES
-(1, 'Sales Rep'),
-(2, 'Sales Manager'),
-(3, 'Vendor'),
+(1, 'Nhân viên bán hàng'),
+(2, 'Quản lý'),
+(3, 'Nhà cung cấp'),
 (4, 'Admin');
 
 -- --------------------------------------------------------
@@ -325,8 +346,8 @@ CREATE TABLE `task_status` (
 --
 
 INSERT INTO `task_status` (`id`, `status`) VALUES
-(1, 'pending'),
-(2, 'completed');
+(1, 'Đang thực hiện'),
+(2, 'Đã hoàn thành');
 
 -- --------------------------------------------------------
 
@@ -344,13 +365,13 @@ CREATE TABLE `todo_desc` (
 --
 
 INSERT INTO `todo_desc` (`id`, `work`) VALUES
-(1, 'Follow Up Email'),
-(2, 'Phone Call'),
-(3, 'Lunch Meeting'),
-(4, 'Tech Demo'),
-(5, 'Meetup'),
-(6, 'Conference'),
-(7, 'Others');
+(1, 'Gửi Email cho khách hàng'),
+(2, 'Gọi điện thoại tư vấn'),
+(3, 'Gặp mặt khách hàng'),
+(4, 'Demo sản phẩm'),
+(5, 'Tư vấn giải pháp'),
+(6, 'Gửi báo giá'),
+(7, 'Khác');
 
 -- --------------------------------------------------------
 
@@ -368,8 +389,8 @@ CREATE TABLE `todo_type` (
 --
 
 INSERT INTO `todo_type` (`id`, `type`) VALUES
-(1, 'task'),
-(2, 'meeting');
+(1, 'Công việc'),
+(2, 'Buổi gặp mặt');
 
 -- --------------------------------------------------------
 
@@ -392,14 +413,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `Email`, `User_Roles`, `User_Status`, `username`, `PASSWORD`, `name`) VALUES
-(1, 'rep@test.com', 1, 1, 'test', '$2y$10$qBV41wx0BdIIzetgiKgoM.1UqffuHMPbQ18hhvJwiJw36M3BK3ZwK', 'Nguyễn Văn A'),
+(1, 'rep@test.com', 1, 1, 'test', '$2y$10$qBV41wx0BdIIzetgiKgoM.1UqffuHMPbQ18hhvJwiJw36M3BK3ZwK', 'Nhân Viên'),
 (2, 'rep2@test.com', 1, 1, 'sale', '$2y$10$qBV41wx0BdIIzetgiKgoM.1UqffuHMPbQ18hhvJwiJw36M3BK3ZwK', 'Nguyễn Văn A'),
-(3, 'manager@test.com', 2, 1, 'manager', '$2y$10$qBV41wx0BdIIzetgiKgoM.1UqffuHMPbQ18hhvJwiJw36M3BK3ZwK', 'Nguyễn Văn A'),
-(4, 'sm@sm.com', 3, 1, 'vendor', '$2y$10$qBV41wx0BdIIzetgiKgoM.1UqffuHMPbQ18hhvJwiJw36M3BK3ZwK', 'Nguyễn Văn A'),
-(5, 'test@test.com', 4, 1, 'admin', '$2y$10$qBV41wx0BdIIzetgiKgoM.1UqffuHMPbQ18hhvJwiJw36M3BK3ZwK', 'Nguyễn Văn A'),
-(8, '1', 1, 1, 'test1234', '$2y$10$7uXhDlytCs/Tz/FhVEddA.jjwzj.ltla2.wlfx/eLLyRvOpmQZRT.', 'Gh'),
+(3, 'manager@test.com', 2, 1, 'manager', '$2y$10$qBV41wx0BdIIzetgiKgoM.1UqffuHMPbQ18hhvJwiJw36M3BK3ZwK', 'Quản Lý'),
+(4, 'sm@sm.com', 3, 1, 'vendor', '$2y$10$qBV41wx0BdIIzetgiKgoM.1UqffuHMPbQ18hhvJwiJw36M3BK3ZwK', 'Nhà Cung Cấp'),
+(5, 'test@test.com', 4, 1, 'admin', '$2y$10$qBV41wx0BdIIzetgiKgoM.1UqffuHMPbQ18hhvJwiJw36M3BK3ZwK', 'Admin'),
+(8, 'test2@gmail.com', 1, 1, 'test1234', '$2y$10$7uXhDlytCs/Tz/FhVEddA.jjwzj.ltla2.wlfx/eLLyRvOpmQZRT.', 'Test'),
 (9, 'lazy.skynet', 1, 1, 'test1', '$2y$10$jkIKMWuTDpzlm9QnAfUGP.VbNUZcN9AIgUNIwFugtYxsRw/Z.0v32', 'Test'),
-(10, '1', 2, 1, 'test3', '$2y$10$Qp7WTU9tU51nMYSc6ju2suq1iXUwTHPWaiCVNfxU28YQZsp4/lWJu', 'Gh');
+(10, 'test3@gmail.com', 2, 1, 'test3', '$2y$10$Qp7WTU9tU51nMYSc6ju2suq1iXUwTHPWaiCVNfxU28YQZsp4/lWJu', 'Test'),
+(11, 'bdung@gmail.com', 1, 1, 'bdung', '$2y$10$VxeZsznd2EV3rp/K2h9Oa.67n90mZf3VFixZmuczmp8.VjwHp.TMm', 'Bui Dung');
 
 -- --------------------------------------------------------
 
@@ -417,9 +439,9 @@ CREATE TABLE `user_status` (
 --
 
 INSERT INTO `user_status` (`id`, `status`) VALUES
-(1, 'active'),
-(2, 'inactive'),
-(3, 'pending approval');
+(1, 'Đang hoạt động'),
+(2, 'Ngừng hoạt động'),
+(3, 'Chờ được cấp phép');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -429,12 +451,6 @@ INSERT INTO `user_status` (`id`, `status`) VALUES
 -- Chỉ mục cho bảng `contact`
 --
 ALTER TABLE `contact`
-  ADD PRIMARY KEY (`id`);
-
---
--- Chỉ mục cho bảng `contact_status`
---
-ALTER TABLE `contact_status`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -485,6 +501,12 @@ ALTER TABLE `quotations`
   ADD PRIMARY KEY (`quotation_id`);
 
 --
+-- Chỉ mục cho bảng `quotation_status`
+--
+ALTER TABLE `quotation_status`
+  ADD PRIMARY KEY (`status`);
+
+--
 -- Chỉ mục cho bảng `roles`
 --
 ALTER TABLE `roles`
@@ -530,13 +552,7 @@ ALTER TABLE `user_status`
 -- AUTO_INCREMENT cho bảng `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT cho bảng `contact_status`
---
-ALTER TABLE `contact_status`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `customers`
@@ -554,13 +570,13 @@ ALTER TABLE `distributors`
 -- AUTO_INCREMENT cho bảng `notes`
 --
 ALTER TABLE `notes`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `opportunities`
 --
 ALTER TABLE `opportunities`
-  MODIFY `opportunities_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `opportunities_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
@@ -572,7 +588,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT cho bảng `quotations`
 --
 ALTER TABLE `quotations`
-  MODIFY `quotation_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `quotation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `roles`
@@ -602,7 +618,7 @@ ALTER TABLE `todo_type`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `user_status`

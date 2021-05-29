@@ -19,9 +19,11 @@ mysqli_close($connect);
 </section>
 <div id="menu">
     <ul>
-        <li><a href="task_manager.php" <?php if($_GET['currentPage'] == 'tasks') echo 'class="active"'; ?>>Công việc</a></li>
-        <li><a href="customer_manager.php" <?php if($_GET['currentPage'] == 'quotations') echo 'class="active"'; ?>>Báo giá</a></li>
-        <li><a href="customer_manager.php" <?php if($_GET['currentPage'] == 'customer') echo 'class="active"'; ?>>Danh sách Khách hàng</a></li>
+        <li><a href="task_manager.php" <?php if($_GET['currentPage'] == 'task_manager') echo 'class="active"'; ?>>Công việc</a></li>
+        <li><a href="customers.php" <?php if($_GET['currentPage'] == 'customers') echo 'class="active"'; ?>>Khách hàng hiện tại</a></li>
+        <li><a href="quotations.php" <?php if($_GET['currentPage'] == 'quotations') echo 'class="active"'; ?>>Báo giá</a></li>
+        <li><a href="contact_list.php" <?php if($_GET['currentPage'] == 'contact_list') echo 'class="active"'; ?>>Danh sách liên hệ</a></li>
+        <li><a href="products.php" <?php if($_GET['currentPage'] == 'products') echo 'class="active"'; ?>>Danh sách sản phẩm</a></li>
         <li><a href="sale_employee_manager.php" <?php if($_GET['currentPage'] == 'employee') echo 'class="active"'; ?>>Danh sách nhân viên bán hàng</a></li>
     </ul>
 </div>

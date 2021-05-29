@@ -5,6 +5,7 @@ if(!isset($_SESSION)){
 header('Content-Type: text/html; charset=UTF-8');
 include_once("../phpGrid_Lite/conf.php");
 include_once('../inc/head.php');
+$user_id = $_SESSION['userid'];
 
 $mode = addslashes($_POST['mode']);
 $contact_info = array();
@@ -17,6 +18,8 @@ $contact_info['email'] = addslashes($_POST['email']);
 //Mo ket noi den database
 $connect = mysqli_connect( PHPGRID_DB_HOSTNAME, PHPGRID_DB_USERNAME, PHPGRID_DB_PASSWORD, PHPGRID_DB_NAME) or die("Không thể kết nối database");
 
+$user_role=get_Role($connect,$user_id);
+
 switch($mode){
     case "add":
         if(check_exist_contact($connect, $contact_info['Phone'])){
@@ -28,11 +31,16 @@ switch($mode){
             "(NULL, '".$contact_info['Contact_name']."', '".date("Y/m/d")."', '".
             $contact_info['Company']."', '".$contact_info['Address']."', '".$contact_info['Phone']."', '".$contact_info['email']."')"; 
             mysqli_query($connect, $sql);
-            $redirect = "../sales/contact_list.php";
+            if($user_role==2){
+                $redirect = "../managers/contact_list.php";
+            } else {
+                $redirect = "../sales/contact_list.php";
+            }
+            
             header("Location: $redirect");
         }
         break;
-    default
+    default:
         $err = "Đã có lỗi xảy ra.";
         display_ErrMsg($err);
         exit;
@@ -41,6 +49,19 @@ switch($mode){
 ?>
 
 <?php
+
+function get_Role($connect, $user_id){
+    $sql = "SELECT user_roles FROM users WHERE id = '".$user_id."'";
+    $result = mysqli_query($connect, $sql);
+    if (mysqli_num_rows($result) == 0) {
+        $err = "Cập nhật thất bại.";
+        display_ErrMsg($err);
+        exit;
+    } else {
+        $role = mysqli_fetch_array($result);
+    }
+    return $role[0];
+}
 
 function check_exist_contact($connect, $phone){
     $sql = "SELECT phone FROM contact WHERE phone = '".$phone."'";

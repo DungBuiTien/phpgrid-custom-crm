@@ -2,6 +2,8 @@
 if(!isset($_SESSION)){
     session_start();
 }
+$user_id = $_SESSION['userid'];
+
 header('Content-Type: text/html; charset=UTF-8');
 include_once("../phpGrid_Lite/conf.php");
 include_once('../inc/head.php');
@@ -17,6 +19,8 @@ $user_info['distributor_id'] = addslashes($_POST['distributor_id']);
 
 //Mo ket noi den database
 $connect = mysqli_connect( PHPGRID_DB_HOSTNAME, PHPGRID_DB_USERNAME, PHPGRID_DB_PASSWORD, PHPGRID_DB_NAME) or die("Không thể kết nối database");
+
+$user_role=get_Role($connect,$user_id);
 
 if($user_info['distributor_id']=='' || !check_exist_distributor($connect, $user_info['distributor_id']) || $user_info['role'] > 2){
     $err = "Thêm người dùng mới thất bại.";
@@ -53,7 +57,11 @@ switch($mode){
                 display_ErrMsg($err);
                 exit;
             }
-            $redirect = "../vendors/viewdetails.php?mode=view&distributor_id=".$user_info['distributor_id'];
+            if($user_role==2){
+                $redirect = "../managers/sale_employee_manager.php";
+            } else {
+                $redirect = "../vendors/viewdetails.php?mode=view&distributor_id=".$user_info['distributor_id'];
+            }
             header("Location: $redirect");
         }
         break;
@@ -92,4 +100,17 @@ function check_exist_distributor($connect, $distributor_id){
 function display_ErrMsg($err){
     echo "<script type='text/javascript'> window.onload=display_ErrMsg('".$err."'); </script>";
 } 
+
+function get_Role($connect, $user_id){
+    $sql = "SELECT user_roles FROM users WHERE id = '".$user_id."'";
+    $result = mysqli_query($connect, $sql);
+    if (mysqli_num_rows($result) == 0) {
+        $err = "Cập nhật thất bại.";
+        display_ErrMsg($err);
+        exit;
+    } else {
+        $role = mysqli_fetch_array($result);
+    }
+    return $role[0];
+}
 ?>
