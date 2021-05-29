@@ -1,6 +1,9 @@
 <?php
-session_start();
-    unset($_SESSION["userid"]);
-    unset($_SESSION["username"]);
-    header("Location:../");
+if(!isset($_SESSION)){
+    session_start();
+}
+unset($_SESSION["userid"]);
+unset($_SESSION["username"]);
+session_destroy();
+header("Location:../");
 ?>

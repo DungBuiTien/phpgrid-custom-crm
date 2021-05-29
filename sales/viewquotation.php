@@ -7,6 +7,7 @@ include_once('../inc/head.php');
 $_GET['currentPage'] = 'viewquotation';
 $user_id = $_SESSION['userid'];
 $customer_id = addslashes($_GET['customer_id']);
+$quotation_id = addslashes($_GET['quotation_id']);
 
 if(isset($_POST['mode'])){
     $mode = addslashes($_POST['mode']);
@@ -40,6 +41,14 @@ if ($mode=="add"){
         display_ErrMsg($err);
         exit;
     }
+}
+
+if($mode=="update" || $mode=="view"){
+    $sql = "SELECT customers_id FROM customers WHERE quotation_id = '".$quotation_id."'";
+    $result = mysqli_query($connect, $sql);
+    $tmp = mysqli_fetch_array($result);
+    $customer_id =  $tmp[0];
+}
 
     $sql =  "SELECT cu.customers_id, c.contact_name, c.address, d.distributor_name, u.name as sale_name ".
     "FROM customers cu inner join contact c on cu.contact_id = c.id ".
@@ -61,34 +70,24 @@ if ($mode=="add"){
         $quotation_info = $result;
     }
     mysqli_stmt_close($presmt);
-}
+
 
 if($mode=="update" || $mode=="view"){
+    $page_name = "THÔNG TIN BÁO GIÁ";
+    $sql = "SELECT q.product_id, q.quantity, q.original_price, q.sale_price, p.name as product_name ".
+    "FROM quotation_info q INNER JOIN products p ON q.product_id = p.product_id WHERE quotation_id = '".$quotation_id."'";
+    $result = mysqli_query($connect, $sql);
+    $qo_num = mysqli_num_rows($result);
 
-    // Truy van thong tin nha phan phoi
-    $sql =  "SELECT d.distributor_id, distributor_name, distributor_address, distributor_assign_date, distributor_discount, count(1) as distributor_num ".
-            "FROM distributors d inner join distributor_user du on d.distributor_id = du.distributor_id ".
-            "WHERE d.distributor_id = ?";
-            
-    $presmt = mysqli_prepare($connect, $sql);
-    mysqli_stmt_bind_param($presmt, "i", $distributor_id);
-    if(!mysqli_stmt_execute($presmt)){
-        $err = "Đã có lỗi xảy ra trong quá trình truy vấn.";
-        display_ErrMsg($err);
-        exit;
+    for ($i=0; $i<$qo_num; $i++){
+        $qo_list[$i] = mysqli_fetch_array($result);
     }
-    $result = array();
-    mysqli_stmt_bind_result($presmt, $result['distributor_id'], $result['distributor_name'], $result['distributor_address'], $result['distributor_assign_date'], $result['distributor_discount'], $result['distributor_num'] );
-    while (mysqli_stmt_fetch($presmt)) {
-        $distributor_info = $result;
-    }
-    mysqli_stmt_close($presmt);
-    
-    if(!isset($distributor_info['distributor_id'])){
-        $err = "Nhà phân phối không tồn tại";
-        display_ErrMsg($err);
-        exit;
-    }
+    mysqli_free_result($result);
+
+    $sql = "SELECT original_price, sale_price from quotations WHERE quotation_id = '".$quotation_id."'";
+    $result = mysqli_query($connect, $sql);
+    $sum = mysqli_fetch_array($result);
+    mysqli_free_result($result);
 }
 ?>
 
@@ -96,6 +95,8 @@ if($mode=="update" || $mode=="view"){
     <h2 style="text-align: center"><?=$page_name?></h2>
     <form class="info_form" id='info_form' method="POST" action="../controller/update_quotation.php">
     <input type="hidden" name='mode' id='mode' value="<?php if($mode=="add"){echo "add";}else{echo "update";}?>" >
+    <input type="hidden" name='customer_id' id='customer_id' value="<?php if($mode=="add"){echo $customer_id;}?>" >
+    <input type="hidden" name='quotation_id' id='quotation_id' value="<?php if($mode=="view"){echo $quotation_id;}?>" >
     <div class="col-1">
         <label>
         <h1 style="text-align: center">BÁO GIÁ</h1>
@@ -151,18 +152,26 @@ if($mode=="update" || $mode=="view"){
                 <th style='text-align: center; width: 10%'>Giá bán</th>
             </tr>
 <?php
-            for ($i=0; $i<$op_num; $i++){
+            for ($i=0; $i<10; $i++){
+                if ($i==0 || $qo_list[$i]['product_id']!=""){
+                    $required = "required";
+                } else {
+                    $required = "";
+                }
                 echo "<tr>";
-                echo "<td style='text-align: center; width: 10%'>".$op_list[$i]["date_added"]."</td>";
-                echo "<td style='width: 10%'>".$op_list[$i]["contact_name"]."</td>";
-                echo "<td style='width: 20%'>".$op_list[$i]["address"]."</td>";
-                echo "<td>".$op_list[$i]["note"]."</td>";
-                echo "<td style='text-align: center; width: 5%'>".$op_list[$i]["priority"]."</td>";
-                echo "<td style='text-align: center; width: 5%'>".$op_list[$i]["budget"]."</td>";
-                echo "<td style='text-align: center; width: 5%'><button onclick=\"document.getElementById('".$op_list[$i]['opportunities_id']."').style.display='block'\" type=\"button\">edit</button></td>";
+                echo "<td><input value='".$qo_list[$i]['product_id']."' style='text-align: center' type='number' id='product_".$i."_id' name='product_".$i."_id' onblur='getPrice(event)' ".$required." ></td>";
+                echo "<td><input value='".$qo_list[$i]['product_name']."' id='product_".$i."_name' name='product_".$i."_name' readonly></td>";
+                echo "<td><input value='".$qo_list[$i]['quantity']."' style='text-align: center' type='number' id='product_".$i."_quantity' onblur='changeQuantity(event)' name='product_".$i."_quantity'></td>";
+                echo "<td><input value='".$qo_list[$i]['original_price']."' style='text-align: center' id='product_".$i."_original_price' onblur='updateSum()' name='product_".$i."_original_price' readonly></td>";
+                echo "<td><input value='".$qo_list[$i]['sale_price']."' type='number' id='product_".$i."_sale_price' onblur='updateSum()' name='product_".$i."_sale_price' ".$required." ></td>";
                 echo "</tr>";
             }
 ?>
+            <tr>
+                <td colspan='3'><h2>Tổng</h2></td>
+                <td><input value="<?=$sum['original_price']?>" style='text-align: center' id='sum_ori' name='sum_ori'readonly></td>
+                <td><input value="<?=$sum['sale_price']?>" style='text-align: center' id='sum_sale' name='sum_sale' readonly></td>
+            </tr>
         </table>
     </div>
 
@@ -171,20 +180,19 @@ if($mode=="update" || $mode=="view"){
 <?php
     switch($mode){
         case "view":
-            echo "<button type='button' onclick=\"location.href='viewdetails.php?mode=update&distributor_id=".$distributor_info['distributor_id']."'\">Chỉnh sửa</button>";
-            echo "<button type='button' class='submitbtn' id='del_button' onclick='setDelPro()'>Xoá nhà phân phối</button>";
+            echo "<button class='submitbtn'>Cập nhật</button>";
+            echo "<button type='button' class='submitbtn' id='cancel_button' onclick='location.href=\"customers.php\"'>Huỷ</button>";
             break;
-        case "update":
         case "add":
             echo "<button class='submitbtn'>Thêm mới</button>";
             echo "<button type='button' class='submitbtn' id='cancel_button' onclick='location.href=\"customers.php\"'>Huỷ</button>";
             break;
     }
-    
 ?>
     </div>
     </form>
 </div>
+
 
 
 <?php
@@ -210,5 +218,83 @@ function check_exist_customer($connect, $customer_id, $sale_id){
         return true;
     }
 }
+?>
+<script>
+    function getPrice(e){
+        var product_id = e.target.value;
+        var product_pos = e.target.getAttribute('id');
+        var product_item = product_pos.substr(0,product_pos.length-3);
+
+        var product_name = product_item+"_name";
+        var product_quantity = product_item+"_quantity";
+        var product_price = product_item+"_original_price";
+        var product_sale_price = product_item+"_sale_price";
+
+        if (document.getElementById(product_pos).value==""){
+            document.getElementById(product_name).value="";
+            document.getElementById(product_price).value="";
+            document.getElementById(product_quantity).value="";
+            document.getElementById(product_sale_price).value="";
+            document.getElementById(product_sale_price).removeAttribute("required");
+            updateSum();
+        } else {
+            $.ajax( 
+            {
+                url : '../controller/getprice.php?product_id='+product_id,
+                type : 'get',
+                success : function( respond ) 
+                {   
+                    data = JSON.parse(respond);
+                    if(typeof data == 'string'){
+                        alert("Mã sản phẩm không tồn tại");
+                        document.getElementById(product_pos).value="";
+                        document.getElementById(product_name).value="";
+                        document.getElementById(product_price).value="";
+                        document.getElementById(product_quantity).value="";
+                        document.getElementById(product_sale_price).value="";
+                        document.getElementById(product_sale_price).removeAttribute("required");
+                    } else {
+                        document.getElementById(product_name).value=data.name;
+                        document.getElementById(product_price).value=data.price;
+                        document.getElementById(product_quantity).value=1;
+                        document.getElementById(product_sale_price).setAttribute("required","required");
+                    }
+                    updateSum();
+                }
+            });
+        }
+        
+    }
+
+    function updateSum(){
+        var sum_ori = 0;
+        var sum_sale = 0;
+        for(var i=0;i<10;i++){
+            var quantity = document.getElementById("product_"+i+"_quantity").value;
+            var price_ori = document.getElementById("product_"+i+"_original_price").value;
+            var price_sale = document.getElementById("product_"+i+"_sale_price").value;
+            if (quantity=='') quantity=0;
+            if (price_ori=='') price_ori=0;
+            if (price_sale=='') price_sale=0;
+            sum_ori+=quantity*price_ori;
+            sum_sale+=quantity*price_sale;
+        }
+        document.getElementById("sum_ori").value=sum_ori;
+        document.getElementById("sum_sale").value=sum_sale;
+    }
+
+    function changeQuantity(e){
+        var product_id = e.target.value;
+        var product_quantity = e.target.getAttribute('id');
+        if (document.getElementById(product_quantity).value<1){
+            alert("Số lượng phải là số dương");
+        } else {
+            updateSum();
+        }
+    }
+
+</script>
+
+<?php
 include_once('../inc/footer.php');
 ?>

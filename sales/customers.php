@@ -61,7 +61,7 @@ mysqli_close($connect);
         echo "<td>".$cu_list[$i]["note"]."</td>";
         echo "<td style='text-align: center; width: 10%'>".$cu_list[$i]["budget"]."</td>";
         echo "<td style='text-align: center; width: 15%'>".$cu_list[$i]["status"]."</td>";
-        echo "<td style='text-align: center; width: 5%'>".$cu_list[$i]["quotation_id"]."</td>";
+        echo "<td style='text-align: center; width: 5%'><a href='viewquotation.php?mode=view&quotation_id=".$cu_list[$i]["quotation_id"]."'>".$cu_list[$i]["quotation_id"]."</a></td>";
         echo "<td style='text-align: center; width: 5%'><button onclick=\"document.getElementById('".$cu_list[$i]['customers_id']."').style.display='block'\" type=\"button\">edit</button></td>";
         echo "</tr>";
     }
@@ -147,7 +147,7 @@ window.onclick = function(event) {
         }
     }
 }
-
+</script>
 <?php
 include_once('../inc/footer.php');
 ?>

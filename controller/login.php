@@ -42,7 +42,7 @@ if (password_verify($password, $row['password'])) {
             header("Location: $redirect");
             break;
         case 2:
-            $redirect = "../managers/pipeline.php";
+            $redirect = "../managers/task_manager.php";
             header("Location: $redirect");
             break;
         case 3:

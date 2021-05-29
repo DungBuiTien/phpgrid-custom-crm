@@ -215,6 +215,10 @@ input {
     color: white;
 }
 
+.info_table input{
+    color: black!important;
+}
+
 #distributors_id {
     width: 40px;
     text-align: center;
