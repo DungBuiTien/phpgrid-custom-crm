@@ -98,3 +98,7 @@ window.onclick = function(event) {
     }
 }
 </script>
+
+<?php
+include_once('../inc/footer.php');
+?>
