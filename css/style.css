@@ -3,16 +3,22 @@ body {
     margin: 0px 15px;
     padding: 0px 15px;
 }
+
+
 /* css cho table của phpgrid*/
+
 .ui-jqgrid-htable th,
-.ui-jqgrid tr.jqgrow td{ 
-    text-transform: capitalize; 
+.ui-jqgrid tr.jqgrow td {
+    text-transform: capitalize;
 }
-.ui-jqgrid-htable th div{
+
+.ui-jqgrid-htable th div {
     font-weight: bold;
 }
 
+
 /* css cho phần menu*/
+
 #menu ul {
     list-style-type: none;
     margin: 0;
@@ -25,20 +31,23 @@ body {
     float: left;
 }
 
-#menu  ul li a {
+#menu ul li a {
     display: block;
     color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
-#menu  ul li a:hover,
+
+#menu ul li a:hover,
 #menu .active {
     background-color: #ddd;
-    color:black;
+    color: black;
 }
 
+
 /* css cho footer*/
+
 .footer {
     position: fixed;
     right: 0;
@@ -48,11 +57,14 @@ body {
     background-color: #efefef;
     text-align: center;
 }
-.ui-tabs-panel #subtitle{
-  display:none;
+
+.ui-tabs-panel #subtitle {
+    display: none;
 }
 
+
 /* css cho form login*/
+
 .login-form {
     background: #e2e2e5;
     display: flex;
@@ -61,26 +73,30 @@ body {
     width: 100vw;
     height: 100vh;
 }
+
 @media (max-width: 767px) {
-.login-form {
-    height: auto;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-  }
+    .login-form {
+        height: auto;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+    }
 }
+
 .container {
     display: flex;
     height: 320px;
     margin: 0 auto;
     width: 640px;
 }
+
 @media (max-width: 767px) {
-.container {
-    flex-direction: column;
-    height: 630px;
-    width: 320px;
-  }
+    .container {
+        flex-direction: column;
+        height: 630px;
+        width: 320px;
+    }
 }
+
 .left {
     background: white;
     height: calc(100% - 40px);
@@ -88,44 +104,51 @@ body {
     position: relative;
     width: 50%;
 }
+
 @media (max-width: 767px) {
-.left {
-    height: 100%;
-    left: 20px;
-    width: calc(100% - 40px);
-    max-height: 270px;
-  }
+    .left {
+        height: 100%;
+        left: 20px;
+        width: calc(100% - 40px);
+        max-height: 270px;
+    }
 }
+
 .name {
     font-size: 40px;
     font-weight: bold;
     margin: 50px 0px 50px 40px;
 }
+
 .description {
     color: #999;
     font-size: 14px;
     line-height: 1.5;
     margin: 40px;
 }
+
 .right {
     background: #474A59;
-    box-shadow: 0px 0px 40px 16px rgba(0,0,0,0.22);
+    box-shadow: 0px 0px 40px 16px rgba(0, 0, 0, 0.22);
     color: #F1F1F2;
     position: relative;
     width: 50%;
 }
+
 @media (max-width: 767px) {
-.right {
-    flex-shrink: 0;
-    height: 100%;
-    width: 100%;
-    max-height: 350px;
-  }
+    .right {
+        flex-shrink: 0;
+        height: 100%;
+        width: 100%;
+        max-height: 350px;
+    }
 }
+
 .form {
     margin: 40px;
     position: absolute;
 }
+
 label {
     color: #ffffff;
     display: block;
@@ -134,6 +157,7 @@ label {
     margin-top: 20px;
     margin-bottom: 5px;
 }
+
 input {
     background: transparent;
     border: 0px;
@@ -145,6 +169,7 @@ input {
     width: 100%;
     border-bottom: 1px solid #f2f2f2;
 }
+
 #submit {
     margin-top: 40px;
     border-color: #efefef;
@@ -153,7 +178,9 @@ input {
     margin-left: 25%;
 }
 
+
 /* css cho trang nha phan phoi */
+
 #add_distributor {
     padding: 5px;
     margin: 15px 0px 0px;
@@ -166,14 +193,19 @@ input {
     width: 100%;
 }
 
-.info_table td, .info_table th {
+.info_table td,
+.info_table th {
     border: 1px solid #ddd;
     padding: 8px;
 }
 
-.info_table tr:nth-child(even){background-color: #f2f2f2;}
+.info_table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
-.info_table tr:hover {background-color: #ddd;}
+.info_table tr:hover {
+    background-color: #ddd;
+}
 
 .info_table th {
     padding-top: 12px;
@@ -198,7 +230,9 @@ input {
     text-align: center;
 }
 
+
 /* Form thong tin nha phan phoi */
+
 .info_form {
     display: block;
     margin: 30px;
@@ -207,8 +241,8 @@ input {
     border-radius: 5px;
     font-size: 0;
 }
-  
-.info_form > div > label {
+
+.info_form>div>label {
     display: block;
     padding: 20px 20px 10px;
     font-size: 13px;
@@ -218,12 +252,15 @@ input {
     height: auto!important;
     margin: auto!important;
 }
-  
-.col-1, .col-2, .col-3, .col-4 { 
+
+.col-1,
+.col-2,
+.col-3,
+.col-4 {
     border-bottom: 1px solid #000000;
 }
-  
-.info_form > div > label > input {
+
+.info_form>div>label>input {
     display: inline-block;
     position: relative;
     width: 100%;
@@ -238,10 +275,12 @@ input {
     text-align: center;
     padding: 20px;
 }
-.col-4 > label > input {
+
+.col-4>label>input {
     text-align: center;
 }
-.info_form > div > label > select {
+
+.info_form>div>label>select {
     display: block;
     width: 100%;
     padding: 0;
@@ -252,50 +291,84 @@ input {
     transition: all linear .3s;
 }
 
-.info_form > label > input:focus, label > select:focus {
+.info_form>label>input:focus,
+label>select:focus {
     opacity: 1;
 }
 
-@media(min-width: 850px){
-    .info_form > div { display: inline-block; }
-    .col-submit { display: block; }
-    
-    .col-1, .col-2, .col-3, .col-4 { box-shadow: 1px 1px #e4e4e4; border: none; }
-    .col-1 { width: 100% }
-    .col-2 { width: 50% }
-    .col-3 { width: 33.3333333333%; height: 80px;}
-    .col-4 { width: 25% }
-    
+@media(min-width: 850px) {
+    .info_form>div {
+        display: inline-block;
+    }
+    .col-submit {
+        display: block;
+    }
+    .col-1,
+    .col-2,
+    .col-3,
+    .col-4 {
+        box-shadow: 1px 1px #e4e4e4;
+        border: none;
+    }
+    .col-1 {
+        width: 100%
+    }
+    .col-2 {
+        width: 50%
+    }
+    .col-3 {
+        width: 33.3333333333%;
+        height: 80px;
+    }
+    .col-4 {
+        width: 25%
+    }
 }
 
 .submitbtn {
     margin: 10px 10px;
 }
 
+
 /* The Modal (background) */
+
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
     padding-top: 60px;
 }
 
+
 /* Modal Content/Box */
+
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    margin: 5% auto 15% auto;
+    /* 5% from the top, 15% from the bottom and centered */
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 80%;
+    /* Could be more or less, depending on screen size */
 }
-  
+
+
 /* The Close Button (x) */
+
 .close {
     position: absolute;
     right: 25px;
@@ -304,36 +377,52 @@ input {
     font-size: 35px;
     font-weight: bold;
 }
-  
+
 .close:hover,
 .close:focus {
     color: red;
     cursor: pointer;
 }
-  
+
+
 /* Add Zoom Animation */
+
 .animate {
     -webkit-animation: animatezoom 0.6s;
     animation: animatezoom 0.6s
 }
-  
+
 @-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)} 
-    to {-webkit-transform: scale(1)}
+    from {
+        -webkit-transform: scale(0)
+    }
+    to {
+        -webkit-transform: scale(1)
+    }
 }
-    
+
 @keyframes animatezoom {
-    from {transform: scale(0)} 
-    to {transform: scale(1)}
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
 }
-  
+
+
 /* Change styles for span and cancel button on extra small screens */
+
 @media screen and (max-width: 300px) {
     span.psw {
-       display: block;
-       float: none;
+        display: block;
+        float: none;
     }
     .cancelbtn {
-       width: 100%;
+        width: 100%;
     }
+}
+
+.w-50 {
+    width: 50% !important;
 }

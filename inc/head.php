@@ -11,3 +11,4 @@
 ?>
 <body>
 <h1>Hệ thống quản lý khách hàng</h1>
+<a href="../controller/logout.php">logout</a>
