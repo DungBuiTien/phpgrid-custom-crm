@@ -11,7 +11,7 @@ $user_id = $_SESSION['userid'];
 $connect = mysqli_connect( PHPGRID_DB_HOSTNAME, PHPGRID_DB_USERNAME, PHPGRID_DB_PASSWORD, PHPGRID_DB_NAME) or die("Không thể kết nối database");
  
 //Lay ra danh sach các task hien tai
-$sql =  "SELECT o.opportunities_id, c.id as contact_id, c.contact_name, u.name, o.note, o.priority, o.budget, o.date_added ".
+$sql =  "SELECT o.opportunities_id, c.id as contact_id, c.contact_name, c.address, u.name, o.note, o.priority, o.budget, o.date_added ".
         "FROM opportunities o INNER JOIN contact c on o.contact_id = c.id ".
         "INNER JOIN users u on o.sale_id = u.id ".
         "WHERE o.sale_id = ".$user_id." AND status = 1 ".
@@ -32,6 +32,7 @@ mysqli_close($connect);
     <tr>
         <th>Ngày thêm</th>
         <th>Khách hàng</th>
+        <th>Địa chỉ</th>
         <th>Miêu tả</th>
         <th>Độ ưu tiên (1-5)</th>
         <th>Ngân sách tối đa</th>
@@ -42,6 +43,7 @@ mysqli_close($connect);
         echo "<tr>";
         echo "<td style='text-align: center; width: 10%'>".$op_list[$i]["date_added"]."</td>";
         echo "<td style='width: 10%'>".$op_list[$i]["contact_name"]."</td>";
+        echo "<td style='width: 20%'>".$op_list[$i]["address"]."</td>";
         echo "<td>".$op_list[$i]["note"]."</td>";
         echo "<td style='text-align: center; width: 5%'>".$op_list[$i]["priority"]."</td>";
         echo "<td style='text-align: center; width: 5%'>".$op_list[$i]["budget"]."</td>";

@@ -32,6 +32,10 @@ switch($mode){
             header("Location: $redirect");
         }
         break;
+    default
+        $err = "Đã có lỗi xảy ra.";
+        display_ErrMsg($err);
+        exit;
 }
 
 ?>

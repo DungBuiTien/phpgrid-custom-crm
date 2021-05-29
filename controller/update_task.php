@@ -24,6 +24,7 @@ $connect = mysqli_connect( PHPGRID_DB_HOSTNAME, PHPGRID_DB_USERNAME, PHPGRID_DB_
 switch($mode){
     case "add":
         if(!check_exist_contact($connect, $task_info['contact'])){
+            mysqli_close($connect);
             $err = "Khách hàng không tồn tại.";
             display_ErrMsg($err);
             exit;
@@ -32,12 +33,14 @@ switch($mode){
             " values (NULL, '".$task_info['date']."', '".$task_info['task_desc']."', '".$task_info['type_id']."', '".$task_info['work_id']."', '".$task_info['task_due_date']."', '".$task_info['contact']."', 1".
             ", '".$task_info['task_update']."', ".$user_id.")";
             mysqli_query($connect, $sql);
+            mysqli_close($connect);
             $redirect = "../sales/tasks.php";
             header("Location: $redirect");
         }
         break;
     case "update":
         if(!check_exist_contact($connect, $task_info['contact']) || $task_info['task_id']==""){
+            mysqli_close($connect);
             $err = "Cập nhật thất bại.";
             display_ErrMsg($err);
             exit;
@@ -50,22 +53,30 @@ switch($mode){
             "todo_due_date = '".$task_info['task_due_date']."' ".
             "WHERE id = ".$task_info['task_id'];
             mysqli_query($connect, $sql);
+            mysqli_close($connect);
             $redirect = "../sales/tasks.php";
             header("Location: $redirect");
         }
         break;
     case "complete":
         if(!check_exist_contact($connect, $task_info['contact']) || $task_info['task_id']==""){
+            mysqli_close($connect);
             $err = "Cập nhật thất bại.";
             display_ErrMsg($err);
             exit;
         } else {
             $sql = "UPDATE notes SET task_status = 2 WHERE id = ".$task_info['task_id'];
             mysqli_query($connect, $sql);
+            mysqli_close($connect);
             $redirect = "../sales/tasks.php";
             header("Location: $redirect");
         }
         break;
+    default:
+        $err = "Đã có lỗi xảy ra.";
+        mysqli_close($connect);
+        display_ErrMsg($err);
+        exit;
 }
 
 ?>
