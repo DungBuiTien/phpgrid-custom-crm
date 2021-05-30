@@ -95,8 +95,11 @@ if($mode=="update" || $mode=="view"){
             echo "<button type='button' class='submitbtn' id='del_button' onclick='setDelPro()'>Xoá nhà phân phối</button>";
             break;
         case "update":
+            echo "<button class='submitbtn'>Cập nhật</button>";
+            echo "<button type='button' onclick=\"location.href='viewdetails.php?mode=view&distributor_id=".$distributor_info['distributor_id']."'\">Cancel</button>";
         case "add":
             echo "<button class='submitbtn'>Cập nhật</button>";
+            echo "<button type='button' onclick=\"location.href='distributors.php'\">Cancel</button>";
             break;
     }
     

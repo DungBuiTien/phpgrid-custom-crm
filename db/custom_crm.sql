@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 29, 2021 lúc 06:43 PM
+-- Thời gian đã tạo: Th5 30, 2021 lúc 02:41 PM
 -- Phiên bản máy phục vụ: 10.4.19-MariaDB
 -- Phiên bản PHP: 8.0.6
 
@@ -73,10 +73,10 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customers_id`, `contact_id`, `sale_id`, `note`, `status`, `budget`, `quotation_id`, `update_date`) VALUES
-(1, 1, 2, 'Khách hàng cần sản phẩm gấp', 1, NULL, 5, '2021-05-29 16:20:34'),
+(1, 1, 2, 'Khách hàng cần sản phẩm gấp', 2, 0, 5, '2021-05-30 11:31:13'),
 (2, 2, 2, 'Khách hàng yêu cầu đưa báo giá trước 09/06', 1, 5000000, NULL, '2021-05-29 16:21:53'),
 (3, 3, 2, 'Khách hàng yêu cầu chi phí thấp nhất', 1, NULL, NULL, '2021-05-29 16:21:23'),
-(5, 3, 2, 'Chưa chốt được chi phí cuối cùng', 2, NULL, NULL, '2021-05-29 16:22:09');
+(5, 3, 2, 'Chưa chốt được chi phí cuối cùng', 1, 0, NULL, '2021-05-30 11:31:09');
 
 -- --------------------------------------------------------
 
@@ -145,7 +145,12 @@ INSERT INTO `distributor_user` (`distributor_id`, `user_id`) VALUES
 (13, 8),
 (13, 9),
 (13, 10),
-(1, 11);
+(1, 11),
+(2, 12),
+(2, 13),
+(3, 14),
+(3, 15),
+(3, 16);
 
 -- --------------------------------------------------------
 
@@ -421,7 +426,12 @@ INSERT INTO `users` (`id`, `Email`, `User_Roles`, `User_Status`, `username`, `PA
 (8, 'test2@gmail.com', 1, 1, 'test1234', '$2y$10$7uXhDlytCs/Tz/FhVEddA.jjwzj.ltla2.wlfx/eLLyRvOpmQZRT.', 'Test'),
 (9, 'lazy.skynet', 1, 1, 'test1', '$2y$10$jkIKMWuTDpzlm9QnAfUGP.VbNUZcN9AIgUNIwFugtYxsRw/Z.0v32', 'Test'),
 (10, 'test3@gmail.com', 2, 1, 'test3', '$2y$10$Qp7WTU9tU51nMYSc6ju2suq1iXUwTHPWaiCVNfxU28YQZsp4/lWJu', 'Test'),
-(11, 'bdung@gmail.com', 1, 1, 'bdung', '$2y$10$VxeZsznd2EV3rp/K2h9Oa.67n90mZf3VFixZmuczmp8.VjwHp.TMm', 'Bui Dung');
+(11, 'bdung@gmail.com', 1, 1, 'bdung', '$2y$10$VxeZsznd2EV3rp/K2h9Oa.67n90mZf3VFixZmuczmp8.VjwHp.TMm', 'Bui Dung'),
+(12, 'ql2@gmail.com', 2, 1, 'manager2', '$2y$10$gW35e2b8fl9HDmvzKRL2R.kNVrmi4Wk4Oou3uJujZQxDmRK/1wn4O', 'Quản Lý chi nhánh 2'),
+(13, 'nv2@gmail.com', 1, 1, 'sale2', '$2y$10$Cg5q76AMoo3eC2bGJ8B2JOaCfQ1MFu6oo3gs3uzSWbG7VKuYssa2q', 'Nhân viên chi nhánh 2'),
+(14, 'ql3@gmail.com', 2, 1, 'manager3', '$2y$10$01fo70RstQXPtDfKMd.HzOYts3J2qKlGWncEp/Q33GW0r2uHejtJe', 'Quản Lý'),
+(15, 'nv31@gmail.com', 1, 1, 'sale31', '$2y$10$9Dxmur8nb.u6JWM5JB7yGuR67CycEpsH4xo5USDGKX.OM5xr4v.mu', 'Nhân viên chi nhánh 3'),
+(16, 'nv32@gmail.com', 2, 1, 'sale32', '$2y$10$jWH/2upUOm8Mgi1pJw9xEehQSDkOi4hXdJ5m8IetkS4ANsTAt7uwi', 'Nhân viên A');
 
 -- --------------------------------------------------------
 
@@ -618,7 +628,7 @@ ALTER TABLE `todo_type`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT cho bảng `user_status`

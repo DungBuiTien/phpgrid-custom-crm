@@ -11,7 +11,7 @@ mysqli_close($connect);
 ?>
 
 <section id="subtitle">
-    <h2>Chào mừng nhân viên <?=$name[0]?></h2>
+    <h2>Chào mừng quản lý <?=$name[0]?></h2>
     <div>
     Bạn có thể quản lý các task của nhân viên mình ở đây
     </div>
