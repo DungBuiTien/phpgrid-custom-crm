@@ -83,12 +83,10 @@ switch($mode){
             try {
                 $sql = 'UPDATE quotations set original_price = '.$quotation_info['sum_ori'].", sale_price = ".$quotation_info['sum_sale'].", update_date = CURRENT_TIMESTAMP() ".
                 "WHERE quotation_id = ".$quotation_info['quotation_id'];
-                var_dump($sql);
                 mysqli_query($connect, $sql);
                 
                 // Update bang bao gia
                 $sql1 = "DELETE FROM quotation_info WHERE quotation_id = ".$quotation_info['quotation_id'];
-                var_dump($sql1);
                 mysqli_query($connect, $sql1);
 
                 // Update info 
@@ -125,7 +123,7 @@ switch($mode){
         } else {
             mysqli_begin_transaction($connect);
             try {
-                $sql = 'UPDATE quotations set status = '.$quotation_info['status'];
+                $sql = 'UPDATE quotations set status = '.$quotation_info['status'].' WHERE quotation_id = '.$quotation_info['quotation_id'];
                 var_dump($sql);
                 mysqli_query($connect, $sql);
                 mysqli_commit($connect);

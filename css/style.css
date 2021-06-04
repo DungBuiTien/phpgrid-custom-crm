@@ -432,3 +432,10 @@ label>select:focus {
     font-weight: normal!important;
     margin: 15px 0px 0px!important;
 }
+
+.inline { 
+    display: inline-block;
+    align-content: center;
+    float:left;
+    margin :10px;
+}

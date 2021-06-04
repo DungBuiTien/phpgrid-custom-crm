@@ -37,6 +37,14 @@ if($mode=="update" || $mode=="view"){
         display_ErrMsg($err);
         exit;
     }
+
+    $tmp_sql = "SELECT sum(original_price) FROM quotations q inner join distributor_user d on d.user_id = q.sale_id WHERE q.update_date > DATE(NOW() - INTERVAL 1 MONTH) AND d.distributor_id = ".$distributor_info['distributor_id'];
+    $tmp_result = mysqli_query($connect, $tmp_sql);
+    $tmp_val = mysqli_fetch_array($tmp_result);
+    $distributor_info['sum'] = $tmp_val[0];
+    mysqli_free_result($tmp_result);
+    if ($distributor_info['sum']=="") $distributor_info['sum'] = 0;
+    mysqli_close($connect);
 }
 ?>
 
@@ -84,7 +92,7 @@ if($mode=="update" || $mode=="view"){
     <div class="col-4">
         <label>
         Doanh số tháng gần nhất
-        <input id="distributor_order" name="distributor_order" tabindex="7" value="4" readonly>
+        <input id="distributor_order" name="distributor_order" tabindex="7" value="<?=$distributor_info['sum']?>" readonly>
         </label>
     </div>
     <div class="col-submit">

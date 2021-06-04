@@ -44,8 +44,9 @@ switch($mode){
             $sql = "UPDATE opportunities SET ".
             "note = '".$op_info['note']."', ".
             "priority = '".$op_info['priority']."', ".
-            "budget = '".$op_info['budget']."', ".
-            "WHERE id = ".$op_info['opportunities_id'];
+            "budget = '".$op_info['budget']."' ".
+            "WHERE opportunities_id = ".$op_info['opportunities_id'];
+            var_dump($sql);
             mysqli_query($connect, $sql);
             mysqli_close($connect);
             $redirect = "../sales/opportunities.php";

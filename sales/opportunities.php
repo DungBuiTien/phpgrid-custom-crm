@@ -132,11 +132,11 @@ for ($i=0; $i<$op_num; $i++){
     echo "        <label>";
     echo "        Độ ưu tiên";
     echo "        <select name=\"priority\" id=\"priority\">";
-    echo "            <option value=1>1</option>";
-    echo "            <option value=2>2</option>";
-    echo "            <option value=3>3</option>";
-    echo "            <option value=4>4</option>";
-    echo "            <option value=5>5</option>";
+    echo "            <option value=1 ";if($op_list[$i]["priority"]==1) echo "selected"; echo">1</option>";
+    echo "            <option value=2 ";if($op_list[$i]["priority"]==2) echo "selected"; echo">2</option>";
+    echo "            <option value=3 ";if($op_list[$i]["priority"]==3) echo "selected"; echo">3</option>";
+    echo "            <option value=4 ";if($op_list[$i]["priority"]==4) echo "selected"; echo">4</option>";
+    echo "            <option value=5 ";if($op_list[$i]["priority"]==5) echo "selected"; echo">5</option>";
     echo "         </select>";
     echo "        </label>";
     echo "    </div>";

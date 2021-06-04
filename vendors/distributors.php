@@ -15,6 +15,12 @@ $distributors_num = mysqli_num_rows($result);
 
 for ($i=0; $i<$distributors_num; $i++){
     $distributors_list[$i] = mysqli_fetch_array($result);
+    $tmp_sql = "SELECT sum(original_price) FROM quotations q inner join distributor_user d on d.user_id = q.sale_id WHERE q.update_date > DATE(NOW() - INTERVAL 1 MONTH) AND d.distributor_id = ".$distributors_list[$i]['distributor_id'];
+    $tmp_result = mysqli_query($connect, $tmp_sql);
+    $tmp_val = mysqli_fetch_array($tmp_result);
+    $distributors_list[$i]['sum'] = $tmp_val[0];
+    mysqli_free_result($tmp_result);
+    if ($distributors_list[$i]['sum']=="") $distributors_list[$i]['sum'] = 0;
 }
 
 // Dong ket noi
@@ -42,7 +48,7 @@ mysqli_close($connect);
         echo "<td>".$distributors_list[$i]["distributor_address"]."</td>";
         echo "<td id='distributors_date'>".(new DateTime($distributors_list[$i]["distributor_assign_date"]))->format('Y-m-d')."</td>";
         echo "<td id='distributors_discount'>".$distributors_list[$i]["distributor_discount"]."</td>";
-        echo "<td></td>";
+        echo "<td style='text-align: center'>".$distributors_list[$i]['sum']."</td>";
         echo "</tr>";
     }
 ?>

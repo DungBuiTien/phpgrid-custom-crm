@@ -25,5 +25,6 @@ mysqli_close($connect);
         <li><a href="quotations.php" <?php if($_GET['currentPage'] == 'quotations') echo 'class="active"'; ?>>Báo giá</a></li>
         <li><a href="contact_list.php" <?php if($_GET['currentPage'] == 'contact_list') echo 'class="active"'; ?>>Danh sách liên hệ</a></li>
         <li><a href="products.php" <?php if($_GET['currentPage'] == 'products') echo 'class="active"'; ?>>Danh sách sản phẩm</a></li>
+        <li><a href="reports.php" <?php if($_GET['currentPage'] == 'reports') echo 'class="active"'; ?>>Xem báo cáo</a></li>
     </ul>
 </div>
